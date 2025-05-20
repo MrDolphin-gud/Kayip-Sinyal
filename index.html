@@ -140,28 +140,24 @@
     <div id="nasilOynanir">
       <button class="kapatButon" id="kapatButon">×</button>
       <h2>Nasıl Oynanır</h2>
-      <p>Kayıp Sinyal'de amacınız yeşil kareyi kullanarak kırmızı hedefe ulaşmaktır.</p>
       
       <div class="kontroller">
         <p><strong>Kontroller:</strong></p>
-        <p>↑ - Yukarı hareket</p>
-        <p>↓ - Aşağı hareket</p>
-        <p>← - Sola hareket</p>
-        <p>→ - Sağa hareket</p>
-        <p>R - Bölümü yeniden başlat</p>
-        <p>N - Sonraki bölüme geç (bölüm tamamlandığında)</p>
+        <p>↑↓←→ - Hareket</p>
+        <p>R - Yeniden Başlat</p>
+        <p>N - Sonraki Bölüm</p>
       </div>
 
       <p><strong>Oyun Öğeleri:</strong></p>
-      <p>🟢 Yeşil Kare - Sizin karakteriniz</p>
+      <p>🟢 Yeşil Kare - Karakteriniz</p>
       <p>🔴 Kırmızı Kare - Hedef</p>
-      <p>⚪ Beyaz Çerçeveler - Engeller</p>
-      <p>⚫ Mor Çerçeveler - Duvarlar</p>
+      <p>⚪ Beyaz Çerçeveler - Normal Engeller (çarptığınızda bölüm yeniden başlar)</p>
+      <p>🔵 Mavi Çerçeveler - Hareket Sıfırlayan Engeller (bir kez kullanılabilir)</p>
 
       <p><strong>İpuçları:</strong></p>
-      <p>- Engellere çarpmamaya dikkat edin</p>
+      <p>- Normal engellere çarpmamaya dikkat edin</p>
+      <p>- Mavi engelleri stratejik olarak kullanın (bir kez çalışır)</p>
       <p>- Duvarlara çarptığınızda ses efekti duyacaksınız</p>
-      <p>- Bölümü tamamladığınızda tebrik sesi çalacak</p>
     </div>
 
     <canvas id="oyunKanvas" width="1280" height="720"></canvas>
@@ -182,6 +178,12 @@
   const HEDEF_BOYUT = olcekHesapla(50);   // Kırmızı hedef karesi boyutu
   const ENGEL_BOYUT = olcekHesapla(50);   // Beyaz engel kareleri boyutu
 
+  // Engel tipleri
+  const ENGEL_TIPLERI = {
+    NORMAL: 'normal',      // Normal engel (oyunu yeniden başlatır)
+    HAREKET_SIFIRLA: 'hareketSifirla'  // Hareketi sıfırlayan engel
+  };
+
   // Oyun bölümlerinin tanımları ve düzenleri
   const bolumler = [
     // Bölüm 1: Basit bir labirent düzeni
@@ -201,8 +203,6 @@
       ]
     },
     // Bölüm 2: Daha az engelli basit bir oda
-    // Oyuncu sol üstten başlar, hedef sağ ortadadır
-    // Sadece iki engel vardır ve etraflarında net geçiş yolları bulunur
     {
       oda: { x: olcekHesapla(440), y: olcekHesapla(310), genislik: olcekHesapla(800), yukseklik: olcekHesapla(500), duvar: olcekHesapla(10) },
       oyuncu: { x: olcekHesapla(490), y: olcekHesapla(360) },
@@ -214,8 +214,6 @@
       ]
     },
     // Bölüm 3: L şeklinde basit bir oda
-    // Oyuncu sol üstten başlar, hedef sağ alttadır
-    // Dikey bir engel ve yatay bir engel bulunur
     {
       oda: { x: olcekHesapla(540), y: olcekHesapla(310), genislik: olcekHesapla(600), yukseklik: olcekHesapla(500), duvar: olcekHesapla(10)},
       oyuncu: { x: olcekHesapla(590), y: olcekHesapla(360) },
@@ -225,6 +223,32 @@
         { x: olcekHesapla(840), y: olcekHesapla(700), boyut: olcekHesapla(110) },
         // Yatay engel 
         { x: olcekHesapla(840), y: olcekHesapla(310), boyut: olcekHesapla(300) }
+      ]
+    },
+    // Bölüm 4: Zikzak engelli karmaşık bir oda
+    {
+      oda: { x: olcekHesapla(440), y: olcekHesapla(310), genislik: olcekHesapla(800), yukseklik: olcekHesapla(500), duvar: olcekHesapla(10) },
+      oyuncu: { x: olcekHesapla(490), y: olcekHesapla(660) },  // Bottom left
+      hedef: { x: olcekHesapla(1140), y: olcekHesapla(660) },  // Right bottom
+      engeller: [
+        // Büyük normal engel (oyuncunun üstünde)
+        { x: olcekHesapla(490), y: olcekHesapla(410), boyut: olcekHesapla(200), tip: ENGEL_TIPLERI.NORMAL },
+        // Hareket sıfırlayan engel (sağ üst köşede)
+        { x: olcekHesapla(770), y: olcekHesapla(360), boyut: olcekHesapla(60), tip: ENGEL_TIPLERI.HAREKET_SIFIRLA },
+        // Normal engel (oyuncu ve hedef arasında)
+        { x: olcekHesapla(840), y: olcekHesapla(560), boyut: olcekHesapla(200), tip: ENGEL_TIPLERI.NORMAL }
+      ]
+    },
+    // Bölüm 5: Merkezi engelli bir oda
+    {
+      oda: { x: olcekHesapla(440), y: olcekHesapla(310), genislik: olcekHesapla(800), yukseklik: olcekHesapla(500), duvar: olcekHesapla(10) },
+      oyuncu: { x: olcekHesapla(490), y: olcekHesapla(650) },    // Left side of the large obstacle
+      hedef: { x: olcekHesapla(490), y: olcekHesapla(350) },     // Upper right of the large obstacle
+      engeller: [
+        // Large normal obstacle (almost room-sized)
+        { x: olcekHesapla(490), y: olcekHesapla(410), boyut: olcekHesapla(200), tip: ENGEL_TIPLERI.NORMAL },
+        // Hareket sıfırlayan engel (right side of the large obstacle)
+        { x: olcekHesapla(1040), y: olcekHesapla(650), boyut: olcekHesapla(60), tip: ENGEL_TIPLERI.HAREKET_SIFIRLA }
       ]
     }
   ];
@@ -236,6 +260,7 @@
   let kirmiziBlok;      // Hedef bloğun özellikleri
   let engeller;         // Engellerin listesi
   let oyunBitti;        // Bölümün tamamlanıp tamamlanmadığı
+  let kullanilmisEngeller = new Set();  // Kullanılmış hareket sıfırlama engellerini takip et
 
   // Ses sistemi ayarları
   const sesBaglami = new (window.AudioContext || window.webkitAudioContext)();
@@ -302,9 +327,13 @@
       y: bolum.hedef.y,
       boyut: HEDEF_BOYUT
     };
-    // Engelleri kopyala ve boyutlarını ayarla
-    engeller = bolum.engeller ? bolum.engeller.map(e => Object.assign({}, e, { boyut: e.boyut || ENGEL_BOYUT })) : [];
-    oyunBitti = false;  // Oyun durumunu sıfırla
+    // Engelleri kopyala ve varsayılan tip ekle
+    engeller = bolum.engeller.map(e => ({
+      ...e,
+      tip: e.tip || ENGEL_TIPLERI.NORMAL  // Tip belirtilmemişse normal engel
+    }));
+    oyunBitti = false;
+    kullanilmisEngeller.clear();  // Kullanılmış engelleri sıfırla
   }
 
   // Çizim fonksiyonları
@@ -373,12 +402,19 @@
     cizim.fillRect(kirmiziBlok.x, kirmiziBlok.y, kirmiziBlok.boyut, kirmiziBlok.boyut);
   }
 
-  // Engelleri çiz (beyaz çerçeveli kareler)
+  // Engelleri çiz (beyaz ve mavi çerçeveli kareler)
   function engellerCiz() {
-    cizim.strokeStyle = '#fff';
-    cizim.lineWidth = 3;
-    engeller.forEach(e => {
-      // Dış çerçeve (beyaz)
+    engeller.forEach((e, index) => {
+      // Engel tipine göre renk belirle
+      if (e.tip === ENGEL_TIPLERI.HAREKET_SIFIRLA && !kullanilmisEngeller.has(index)) {
+        cizim.strokeStyle = '#00f';  // Mavi çerçeve (aktif)
+      } else if (e.tip === ENGEL_TIPLERI.HAREKET_SIFIRLA) {
+        cizim.strokeStyle = '#666';  // Gri çerçeve (kullanılmış)
+      } else {
+        cizim.strokeStyle = '#fff';  // Beyaz çerçeve (normal engel)
+      }
+      cizim.lineWidth = 3;
+      // Dış çerçeve
       cizim.strokeRect(e.x, e.y, e.boyut, e.boyut);
       cizim.save();
       // İç çerçeve (mor)
@@ -435,17 +471,27 @@
     }
 
     // Engellerle çarpışma kontrolü
-    for (const e of engeller) {
+    engeller.forEach((e, index) => {
       if (
         oyuncu.x < e.x + e.boyut &&
         oyuncu.x + oyuncu.boyut > e.x &&
         oyuncu.y < e.y + e.boyut &&
         oyuncu.y + oyuncu.boyut > e.y
       ) {
-        sesCal('oyunBitti');  // Engellere çarpma sesi
-        bolumYukle(mevcutBolum);  // Bölümü yeniden başlat
+        if (e.tip === ENGEL_TIPLERI.HAREKET_SIFIRLA && !kullanilmisEngeller.has(index)) {
+          // Hareketi sıfırla ve engeli kullanılmış olarak işaretle
+          oyuncu.hizX = 0;
+          oyuncu.hizY = 0;
+          oyuncu.basilanYon = { sol: false, sag: false, yukari: false, asagi: false };
+          kullanilmisEngeller.add(index);  // Engeli kullanılmış olarak işaretle
+          sesCal('carpma', true);  // Çarpma sesi
+        } else if (e.tip === ENGEL_TIPLERI.NORMAL) {
+          // Normal engel - bölümü yeniden başlat
+          sesCal('oyunBitti');
+          bolumYukle(mevcutBolum);
+        }
       }
-    }
+    });
   }
 
   // Oyun sonu ekranını çiz
