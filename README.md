@@ -1,11 +1,14 @@
 # Kayıp Sinyal 🎮
 
-Kayıp Sinyal, HTML5 Canvas ve JavaScript kullanılarak geliştirilmiş basit ama eğlenceli bir labirent oyunudur. Oyuncunun amacı, yeşil kareyi kullanarak kırmızı hedefe ulaşmaktır.
+Kayıp Sinyal, HTML5 Canvas ve JavaScript kullanılarak geliştirilmiş bir bulmaca oyunudur. Oyuncu, yeşil kareyi kontrol ederek kırmızı hedefe ulaşmaya çalışır.
 
 ## 🎯 Oyun Özellikleri
 
 - Modern ve şık kullanıcı arayüzü
-- 3 farklı bölüm
+- 5 farklı bölüm
+- İki farklı engel tipi:
+  - Normal engeller (beyaz çerçeveli)
+  - Hareket sıfırlayan engeller (mavi çerçeveli, bir kez kullanılabilir)
 - Ses efektleri ve arka plan müziği
 - Ayarlanabilir ses seviyeleri
 - Responsive tasarım
@@ -14,9 +17,11 @@ Kayıp Sinyal, HTML5 Canvas ve JavaScript kullanılarak geliştirilmiş basit am
 ## 🎮 Nasıl Oynanır
 
 1. Ana menüden "Oyuna Başla" butonuna tıklayın
-2. Yeşil kareyi (oyuncu) yön tuşları ile kontrol edin
+2. Yeşil kareyi ok tuşları ile kontrol edin
 3. Kırmızı hedefe ulaşmaya çalışın
-4. Beyaz çerçeveli engellere çarpmamaya dikkat edin
+4. Engellere dikkat edin:
+   - Beyaz çerçeveli engellere çarpmayın (bölüm yeniden başlar)
+   - Mavi çerçeveli engeller hareketinizi durdurur (her engel sadece bir kez çalışır)
 5. Duvarlara çarptığınızda ses efekti duyacaksınız
 6. Bölümü tamamladığınızda tebrik sesi çalacak
 
@@ -33,23 +38,16 @@ Kayıp Sinyal, HTML5 Canvas ve JavaScript kullanılarak geliştirilmiş basit am
 
 - 🟢 Yeşil Kare - Sizin karakteriniz
 - 🔴 Kırmızı Kare - Hedef
-- ⚪ Beyaz Çerçeveler - Engeller
-- ⚫ Mor Çerçeveler - Duvarlar
+- ⚪ Beyaz Çerçeveler - Normal engeller
+- ⚫ Mor Çerçeveler - Hareket sıfırlayan engeller
 
-## 🛠️ Teknik Detaylar
+## ��️ Teknik Detaylar
 
 - HTML5 Canvas kullanılarak geliştirilmiştir
 - Saf JavaScript ile yazılmıştır
-- Responsive tasarım için CSS Flexbox kullanılmıştır
+- Responsive tasarım için CSS kullanılmıştır
 - Web Audio API ile ses yönetimi sağlanmıştır
 
-## 🎵 Ses Dosyaları
-
-Oyun aşağıdaki ses dosyalarını kullanmaktadır:
-- `audio/background.mp3` - Arka plan müziği
-- `audio/click.mp3` - Buton tıklama ve çarpma sesi
-- `audio/gameover.mp3` - Engellere çarpma sesi
-- `audio/victory.mp3` - Bölüm tamamlama sesi
 
 ## Ekran Görüntüleri
 
