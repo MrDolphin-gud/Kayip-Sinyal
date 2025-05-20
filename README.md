@@ -56,5 +56,7 @@ Oyun aşağıdaki ses dosyalarını kullanmaktadır:
 ![image](https://github.com/user-attachments/assets/d9615829-a067-49fe-8e90-f59f1238b74c)
 ![image](https://github.com/user-attachments/assets/3593eda1-7fc0-44c9-87a6-ea0033304426)
 
+## Nasıl Oynanır
+https://youtu.be/5a6vu4UIpJo
 
 Oyunu oynadığınız için teşekkürler! İyi eğlenceler! 🎮✨ 
