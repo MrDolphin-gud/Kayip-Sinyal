@@ -4,7 +4,7 @@ Kayıp Sinyal, HTML5 Canvas ve JavaScript kullanılarak geliştirilmiş bir bulm
 
 ## Orijinal Oyun
 
--https://redteapot.itch.io/lost-signal
+- https://redteapot.itch.io/lost-signal
 
 ## 🎯 Oyun Özellikleri
 
