@@ -1,33 +1,25 @@
-## Kayıp Sinyal 🎮
+# Kayıp Sinyal
 
-Kayıp Sinyal, HTML5 Canvas ve JavaScript kullanılarak geliştirilmiş bir bulmaca oyunudur. Oyuncu, yeşil kareyi kontrol ederek kırmızı hedefe ulaşmaya çalışır.
+Kayıp Sinyal, HTML5 Canvas kullanılarak geliştirilmiş bir bulmaca oyunudur. Oyuncu, yeşil kare karakterini kontrol ederek kırmızı hedefe ulaşmaya çalışır.
 
-## Orijinal Oyun
+## Oyun Özellikleri
 
-- https://redteapot.itch.io/lost-signal
+- 6 farklı bölüm
+- Farklı engel tipleri:
+  - Normal Engeller (Beyaz): Çarpıldığında bölümü yeniden başlatır
+  - Hareket Sıfırlayan Engeller (Mavi): Bir kez kullanılabilir, hareketi sıfırlar
+  - Yönlendiren Engeller (Turkuaz): Oyuncuyu belirli bir yöne hareket ettirir
+- Ses efektleri ve müzik
 
-## 🎯 Oyun Özellikleri
+## Nasıl Oynanır
 
-- Modern ve şık kullanıcı arayüzü
-- 5 farklı bölüm
-- İki farklı engel tipi:
-  - Normal engeller (beyaz çerçeveli)
-  - Hareket sıfırlayan engeller (mavi çerçeveli, bir kez kullanılabilir)
-- Ses efektleri ve arka plan müziği
-- Ayarlanabilir ses seviyeleri
-- Responsive tasarım
-- Türkçe arayüz
-
-## 🎮 Nasıl Oynanır
-
-1. Ana menüden "Oyuna Başla" butonuna tıklayın
-2. Yeşil kareyi ok tuşları ile kontrol edin
+1. Oyunu başlatmak için "Oyuna Başla" butonuna tıklayın
+2. Yön tuşlarını kullanarak karakteri hareket ettirin
 3. Kırmızı hedefe ulaşmaya çalışın
 4. Engellere dikkat edin:
-   - Beyaz çerçeveli engellere çarpmayın (bölüm yeniden başlar)
-   - Mavi çerçeveli engeller hareketinizi durdurur (her engel sadece bir kez çalışır)
-5. Duvarlara çarptığınızda ses efekti duyacaksınız
-6. Bölümü tamamladığınızda tebrik sesi çalacak
+   - Beyaz engellere çarpmamaya çalışın
+   - Mavi engelleri stratejik olarak kullanın
+   - Turkuaz engeller sizi ok yönünde hareket ettirir
 
 ### Kontroller
 
@@ -37,21 +29,12 @@ Kayıp Sinyal, HTML5 Canvas ve JavaScript kullanılarak geliştirilmiş bir bulm
 - → - Sağa hareket
 - R - Bölümü yeniden başlat
 - N - Sonraki bölüme geç (bölüm tamamlandığında)
-
-### Oyun Öğeleri
-
-- 🟢 Yeşil Kare - Sizin karakteriniz
-- 🔴 Kırmızı Kare - Hedef
-- ⚪ Beyaz Çerçeveler - Normal engeller
-- ⚫ Mavi Çerçeveler - Hareket sıfırlayan engeller
-
+  
 ## ��️ Teknik Detaylar
 
 - HTML5 Canvas kullanılarak geliştirilmiştir
 - Saf JavaScript ile yazılmıştır
-- Responsive tasarım için CSS kullanılmıştır
 - Web Audio API ile ses yönetimi sağlanmıştır
-
 
 ## Ekran Görüntüleri
 
