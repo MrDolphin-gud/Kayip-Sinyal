@@ -1,6 +1,10 @@
-# Kayıp Sinyal 🎮
+## Kayıp Sinyal 🎮
 
 Kayıp Sinyal, HTML5 Canvas ve JavaScript kullanılarak geliştirilmiş bir bulmaca oyunudur. Oyuncu, yeşil kareyi kontrol ederek kırmızı hedefe ulaşmaya çalışır.
+
+## Orijinal Oyun
+
+-https://redteapot.itch.io/lost-signal
 
 ## 🎯 Oyun Özellikleri
 
