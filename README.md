@@ -43,7 +43,7 @@ Kayıp Sinyal, HTML5 Canvas ve JavaScript kullanılarak geliştirilmiş bir bulm
 - 🟢 Yeşil Kare - Sizin karakteriniz
 - 🔴 Kırmızı Kare - Hedef
 - ⚪ Beyaz Çerçeveler - Normal engeller
-- ⚫ Mav' Çerçeveler - Hareket sıfırlayan engeller
+- ⚫ Mavi Çerçeveler - Hareket sıfırlayan engeller
 
 ## ��️ Teknik Detaylar
 
