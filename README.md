@@ -29,6 +29,9 @@ Kayıp Sinyal, HTML5 Canvas kullanılarak geliştirilmiş bir bulmaca oyunudur. 
 - → - Sağa hareket
 - R - Bölümü yeniden başlat
 - N - Sonraki bölüme geç (bölüm tamamlandığında)
+
+## Zorluk
+Oyunu her bitirdiğinizde oynanış hızlanır 
   
 ## ��️ Teknik Detaylar
 
