@@ -199,7 +199,7 @@
   // Oyun bölümlerinin tanımları ve düzenleri
   const bolumler = [
     // Bölüm 1: Basit bir labirent düzeni
-    // Oyuncu sol alttan başlar, hedef sağ alttadır
+    // Oyuncu sol ortadan başlar, hedef sağ ortadadır
     // Engeller üst ve alt kısımda simetrik olarak yerleştirilmiştir
     {
       oda: { x: olcekHesapla(440), y: olcekHesapla(310), genislik: olcekHesapla(800), yukseklik: olcekHesapla(500), duvar: olcekHesapla(10) },
@@ -257,7 +257,7 @@
       oyuncu: { x: olcekHesapla(490), y: olcekHesapla(650) },    
       hedef: { x: olcekHesapla(490), y: olcekHesapla(350) },    
       engeller: [
-        // Large normal obstacle 
+        // Büyük normal engel
         { x: olcekHesapla(490), y: olcekHesapla(410), boyut: olcekHesapla(200), tip: ENGEL_TIPLERI.NORMAL },
         // Hareket sıfırlayan engel 
         { x: olcekHesapla(1040), y: olcekHesapla(650), boyut: olcekHesapla(60), tip: ENGEL_TIPLERI.HAREKET_SIFIRLA }
@@ -309,7 +309,7 @@
 
   // Ses çalma fonksiyonu
   // sesAdi: Çalınacak sesin adı
-  // zorla: Ses zaten çalıyorsa yeniden başlatılsın mı?
+  // zorla: Sesi tekrar başlamaya zorla
   function sesCal(sesAdi, zorla = false) {
     const ses = sesler[sesAdi];
     if (ses) {
@@ -494,7 +494,8 @@
   // Oyun mantığı güncelleme fonksiyonları
   // Oyuncu hareketini ve çarpışmaları güncelle
   function oyuncuGuncelle() {
-    if (oyunBitti) return;  // Oyun bittiyse güncelleme yapma
+    if (oyunBitti) 
+      return;  // Oyun bittiyse güncelleme yapma
 
     // Yönlendirme hareketi aktifse
     if (yonlendirmeAktif) {
