@@ -136,25 +136,21 @@
         <input type="range" id="efektSes" min="0" max="100" value="50">
       </div>
     </div>
-
     <div id="nasilOynanir">
       <button class="kapatButon" id="kapatButon">×</button>
       <h2>Nasıl Oynanır</h2>
-      
       <div class="kontroller">
         <p><strong>Kontroller:</strong></p>
         <p>↑↓←→ - Hareket</p>
         <p>R - Yeniden Başlat</p>
         <p>N - Sonraki Bölüm</p>
       </div>
-
       <p><strong>Oyun Öğeleri:</strong></p>
       <p>🟢 Yeşil Kare - Karakteriniz</p>
       <p>🔴 Kırmızı Kare - Hedef</p>
       <p>⚪ Beyaz Çerçeveler - Normal Engeller (çarptığınızda bölüm yeniden başlar)</p>
       <p>🔵 Mavi Çerçeveler - Hareket Sıfırlayan Engeller (bir kez kullanılabilir)</p>
       <p>🟦 Turkuaz Çerçeveler - Yönlendiren Engeller (ok yönünde hareket ettirir)</p>
-
       <p><strong>İpuçları:</strong></p>
       <p>- Normal engellere çarpmamaya dikkat edin</p>
       <p>- Mavi engelleri stratejik olarak kullanın (bir kez çalışır)</p>
@@ -162,32 +158,26 @@
       <p>- Turkuaz engel hareketi duvara çarpana kadar devam eder</p>
       <p>- Duvarlara çarptığınızda ses efekti duyacaksınız</p>
     </div>
-
     <canvas id="oyunKanvas" width="1280" height="720"></canvas>
   </div>
-
   <script>
   // Oyun için gerekli temel değişkenler ve sabitler
   const kanvas = document.getElementById('oyunKanvas');
   const cizim = kanvas.getContext('2d');
-
   // Oyun nesnelerinin boyutlarını ölçeklendirmek için sabitler
   const OLCEK = 0.7;
   // Verilen değeri oyun ölçeğine göre yuvarlar
   function olcekHesapla(deger) { return Math.round(deger * OLCEK); }
-
   // Oyun içindeki nesnelerin standart boyutları
   const OYUNCU_BOYUT = olcekHesapla(50);  // Yeşil oyuncu karesi boyutu
   const HEDEF_BOYUT = olcekHesapla(50);   // Kırmızı hedef karesi boyutu
   const ENGEL_BOYUT = olcekHesapla(50);   // Beyaz engel kareleri boyutu
-
   // Engel tipleri
   const ENGEL_TIPLERI = {
     NORMAL: 'normal',      // Normal engel (oyunu yeniden başlatır)
     HAREKET_SIFIRLA: 'hareketSifirla',  // Hareketi sıfırlayan engel
     YONLENDIR: 'yonlendir'  // Yönlendiren engel
   };
-
   // Yönlendirme yönleri
   const YONLER = {
     YUKARI: 'yukari',    // Yukarı yön
@@ -195,11 +185,10 @@
     SOL: 'sol',          // Sol yön
     SAG: 'sag'           // Sağ yön
   };
-
   // Oyun bölümlerinin tanımları ve düzenleri
   const bolumler = [
     // Bölüm 1: Basit bir labirent düzeni
-    // Oyuncu sol ortadan başlar, hedef sağ ortadadır
+    // Oyuncu sol alttan başlar, hedef sağ alttadır
     // Engeller üst ve alt kısımda simetrik olarak yerleştirilmiştir
     {
       oda: { x: olcekHesapla(440), y: olcekHesapla(310), genislik: olcekHesapla(800), yukseklik: olcekHesapla(500), duvar: olcekHesapla(10) },
@@ -221,8 +210,8 @@
       hedef: { x: olcekHesapla(1090), y: olcekHesapla(510) },
       engeller: [
         // İki engel, etraflarında net geçiş yolları ile
-        { x: olcekHesapla(640), y: olcekHesapla(400), boyut: olcekHesapla(60) },
-        { x: olcekHesapla(640), y: olcekHesapla(600), boyut: olcekHesapla(60) }
+        { x: olcekHesapla(640), y: olcekHesapla(410), boyut: olcekHesapla(60) },
+        { x: olcekHesapla(640), y: olcekHesapla(610), boyut: olcekHesapla(60) }
       ]
     },
     // Bölüm 3: L şeklinde basit bir oda
@@ -257,7 +246,7 @@
       oyuncu: { x: olcekHesapla(490), y: olcekHesapla(650) },    
       hedef: { x: olcekHesapla(490), y: olcekHesapla(350) },    
       engeller: [
-        // Büyük normal engel
+        // Large normal obstacle 
         { x: olcekHesapla(490), y: olcekHesapla(410), boyut: olcekHesapla(200), tip: ENGEL_TIPLERI.NORMAL },
         // Hareket sıfırlayan engel 
         { x: olcekHesapla(1040), y: olcekHesapla(650), boyut: olcekHesapla(60), tip: ENGEL_TIPLERI.HAREKET_SIFIRLA }
@@ -276,7 +265,6 @@
       ]
     }
   ];
-
   // Oyunun anlık durumunu tutan değişkenler
   let mevcutBolum = 0;  // Şu anki bölüm numarası
   let oda;              // Mevcut odanın özellikleri
@@ -287,18 +275,16 @@
   let kullanilmisEngeller = new Set();  // Kullanılmış hareket sıfırlama engellerini takip et
   let yonlendirmeAktif = false;  // Yönlendirme hareketinin aktif olup olmadığı
   let yonlendirmeYonu = null;    // Aktif yönlendirme yönü
-
   // Ses sistemi ayarları
   const sesBaglami = new (window.AudioContext || window.webkitAudioContext)();
   // Oyun içinde kullanılacak ses dosyaları
   const sesler = {
-    arkaplan: new Audio('audio/background.mp3'),    // Arka plan müziği
-    butonTik: new Audio('audio/click.mp3'),         // Buton tıklama sesi
-    oyunBitti: new Audio('audio/gameover.mp3'),     // Engellere çarpma sesi
-    bolumTamam: new Audio('audio/victory.mp3'),     // Bölüm tamamlama sesi
-    carpma: new Audio('audio/click.mp3')            // Duvarlara çarpma sesi
+    arkaplan: new Audio('ses/background.mp3'),    // Arka plan müziği
+    butonTik: new Audio('ses/click.mp3'),         // Buton tıklama sesi
+    oyunBitti: new Audio('ses/gameover.mp3'),     // Engellere çarpma sesi
+    bolumTamam: new Audio('ses/victory.mp3'),     // Bölüm tamamlama sesi
+    carpma: new Audio('ses/click.mp3')            // Duvarlara çarpma sesi
   };
-
   // Ses dosyalarının özelliklerini ayarla
   sesler.arkaplan.loop = true;  // Arka plan müziğini sürekli tekrarla
   Object.values(sesler).forEach(ses => {
@@ -306,10 +292,9 @@
     ses.preload = 'auto';       // Sesleri önceden yükle
     ses.load();                 // Ses dosyalarını yüklemeye başla
   });
-
   // Ses çalma fonksiyonu
   // sesAdi: Çalınacak sesin adı
-  // zorla: Sesi tekrar başlamaya zorla
+  // zorla: Ses zaten çalıyorsa yeniden başlatılsın mı?
   function sesCal(sesAdi, zorla = false) {
     const ses = sesler[sesAdi];
     if (ses) {
@@ -325,7 +310,6 @@
       }
     }
   }
-
   // Bölüm yükleme fonksiyonu
   // bolumIndeks: Yüklenecek bölümün numarası
   function bolumYukle(bolumIndeks) {
@@ -361,7 +345,6 @@
     oyunBitti = false;
     kullanilmisEngeller.clear();  // Kullanılmış engelleri sıfırla
   }
-
   // Çizim fonksiyonları
   // Odayı çiz (duvarlar ve özel şekiller)
   function odaCiz() {
@@ -369,20 +352,17 @@
     cizim.lineWidth = oda.duvar; // Duvar kalınlığı
     cizim.strokeRect(oda.x, oda.y, oda.genislik, oda.yukseklik);
   }
-
   // Oyuncu karakterini çiz (yeşil kare ve yön okları)
   function oyuncuCiz() {
     // Yeşil kareyi çiz
     cizim.fillStyle = '#0f0';
     cizim.fillRect(oyuncu.x, oyuncu.y, oyuncu.boyut, oyuncu.boyut);
-
     // Ok işaretleri için özellikler
     const okUzunluk = 8;    // Ok çizgisinin uzunluğu
     const okGenislik = 5;   // Ok başının genişliği
     const kenarBosluk = 6;  // Kenardan uzaklık
     const merkezX = oyuncu.x + oyuncu.boyut / 2;
     const merkezY = oyuncu.y + oyuncu.boyut / 2;
-
     // Ok çizme yardımcı fonksiyonu
     function okCiz(dx, dy, basili) {
       cizim.save();
@@ -403,13 +383,11 @@
       cizim.stroke();
       cizim.restore();
     }
-
     // Her yön için ok çiz
     okCiz(1, 0, oyuncu.basilanYon.sag);    // Sağ ok
     okCiz(-1, 0, oyuncu.basilanYon.sol);   // Sol ok
     okCiz(0, -1, oyuncu.basilanYon.yukari);// Yukarı ok
     okCiz(0, 1, oyuncu.basilanYon.asagi);  // Aşağı ok
-
     // Hareket ederken parıltı efekti
     if (oyuncu.hizX !== 0 || oyuncu.hizY !== 0) {
       cizim.save();
@@ -421,13 +399,11 @@
       cizim.restore();
     }
   }
-
   // Hedef bloğu çiz (kırmızı kare)
   function hedefCiz() {
     cizim.fillStyle = '#f00';
     cizim.fillRect(kirmiziBlok.x, kirmiziBlok.y, kirmiziBlok.boyut, kirmiziBlok.boyut);
   }
-
   // Engelleri çiz (beyaz, mavi ve yönlendiren çerçeveli kareler)
   function engellerCiz() {
     engeller.forEach((e, index) => {
@@ -444,8 +420,7 @@
       cizim.lineWidth = 3;
       // Dış çerçeve
       cizim.strokeRect(e.x, e.y, e.boyut, e.boyut);
-      cizim.save();
-      
+      cizim.save();   
       // Yönlendiren engel için ok çiz
       if (e.tip === ENGEL_TIPLERI.YONLENDIR) {
         const merkezX = e.x + e.boyut / 2;
@@ -455,7 +430,6 @@
         
         cizim.fillStyle = '#0ff';
         cizim.beginPath();
-        
         // Yöne göre ok çiz
         switch(e.yon) {
           case YONLER.YUKARI:
@@ -482,7 +456,6 @@
         cizim.closePath();
         cizim.fill();
       }
-      
       // İç çerçeve (mor)
       cizim.strokeStyle = '#f0f';
       cizim.lineWidth = 2;
@@ -490,13 +463,10 @@
       cizim.restore();
     });
   }
-
   // Oyun mantığı güncelleme fonksiyonları
   // Oyuncu hareketini ve çarpışmaları güncelle
   function oyuncuGuncelle() {
-    if (oyunBitti) 
-      return;  // Oyun bittiyse güncelleme yapma
-
+    if (oyunBitti) return;  // Oyun bittiyse güncelleme yapma
     // Yönlendirme hareketi aktifse
     if (yonlendirmeAktif) {
       // Yöne göre hareket
@@ -514,7 +484,6 @@
           oyuncu.x += oyuncu.surat;
           break;
       }
-      
       // Duvarlara çarpma kontrolü
       let carpmaVar = false;
       if (oyuncu.x < oda.x + oda.duvar) {
@@ -533,23 +502,18 @@
         oyuncu.y = oda.y + oda.yukseklik - oda.duvar - oyuncu.boyut;
         carpmaVar = true;
       }
-      
       // Duvara çarpıldıysa yönlendirmeyi durdur
       if (carpmaVar) {
         yonlendirmeAktif = false;
         yonlendirmeYonu = null;
         sesCal('carpma', true);
       }
-      
       return;  // Yönlendirme aktifken diğer hareketleri engelle
     }
-
     // Normal hareket güncellemesi
     oyuncu.x += oyuncu.hizX * oyuncu.surat;
     oyuncu.y += oyuncu.hizY * oyuncu.surat;
-    
     let carpmaVar = false;  // Çarpışma durumu
-    
     // Duvarlara çarpma kontrolü ve sınırlama
     if (oyuncu.x < oda.x + oda.duvar) {
       oyuncu.x = oda.x + oda.duvar;
@@ -567,12 +531,10 @@
       oyuncu.y = oda.y + oda.yukseklik - oda.duvar - oyuncu.boyut;
       carpmaVar = true;
     }
-
     // Duvarlara çarpma sesi
     if (carpmaVar) {
       sesCal('carpma', true);
     }
-
     // Hedef ile çarpışma kontrolü
     if (
       oyuncu.x < kirmiziBlok.x + kirmiziBlok.boyut &&
@@ -583,7 +545,6 @@
       oyunBitti = true;
       sesCal('bolumTamam');  // Bölüm tamamlama sesi
     }
-
     // Engellerle çarpışma kontrolü
     engeller.forEach((e, index) => {
       if (
@@ -615,7 +576,6 @@
       }
     });
   }
-
   // Oyun sonu ekranını çiz
   function oyunBittiCiz() {
     cizim.save();
@@ -631,7 +591,6 @@
     }
     cizim.restore();
   }
-
   // Ana oyun döngüsü
   function oyunDongusu() {
     cizim.clearRect(0, 0, kanvas.width, kanvas.height);  // Ekranı temizle
@@ -643,7 +602,6 @@
     if (oyunBitti) oyunBittiCiz();  // Oyun bittiyse sonuç ekranını göster
     requestAnimationFrame(oyunDongusu);  // Bir sonraki kareyi iste
   }
-
   // Klavye girişi işleyicisi
   document.addEventListener('keydown', (e) => {
     // R tuşu: Bölümü yeniden başlat
@@ -671,7 +629,6 @@
       return;
     }
     if (oyunBitti || yonlendirmeAktif) return;  // Oyun bittiyse veya yönlendirme aktifse tuş girişlerini kabul etme
-
     // Yön tuşları ile hareket kontrolü
     if (e.code === 'ArrowRight' && !oyuncu.basilanYon.sag) {
       oyuncu.hizX += 1;
@@ -689,21 +646,18 @@
       oyuncu.hizY += 1;
       oyuncu.basilanYon.asagi = true;
     }
-
     // Zıt yönlere basıldığında hareketi durdur
     if (oyuncu.hizX === 1 && oyuncu.basilanYon.sol) oyuncu.hizX = 0;
     if (oyuncu.hizX === -1 && oyuncu.basilanYon.sag) oyuncu.hizX = 0;
     if (oyuncu.hizY === 1 && oyuncu.basilanYon.yukari) oyuncu.hizY = 0;
     if (oyuncu.hizY === -1 && oyuncu.basilanYon.asagi) oyuncu.hizY = 0;
   });
-
   // Menü sistemi değişkenleri
   const menu = document.getElementById('menu');
   const nasilOynanir = document.getElementById('nasilOynanir');
   const baslatButon = document.getElementById('baslatButon');
   const nasilOynanirButon = document.getElementById('nasilOynanirButon');
   const kapatButon = document.getElementById('kapatButon');
-
   // Buton tıklama işleyicisi
   // buton: Tıklanan buton elementi
   // islem: Tıklama sonrası çalıştırılacak fonksiyon
@@ -714,25 +668,21 @@
       if (islem) islem();  // İşlem fonksiyonunu çalıştır
     });
   }
-
   // Menü butonlarının işlevlerini ayarla
   butonTikla(nasilOynanirButon, () => {
     nasilOynanir.style.display = 'block';  // Nasıl oynanır ekranını göster
     menu.style.display = 'none';           // Ana menüyü gizle
   });
-
   butonTikla(kapatButon, () => {
     nasilOynanir.style.display = 'none';   // Nasıl oynanır ekranını gizle
     menu.style.display = 'block';          // Ana menüyü göster
   });
-
   butonTikla(baslatButon, () => {
     menu.style.display = 'none';           // Ana menüyü gizle
     kanvas.style.display = 'block';        // Oyun ekranını göster
     sesler.arkaplan.play().catch(hata => console.log('Müzik başlatılamadı:', hata));
     oyunDongusu();                         // Oyun döngüsünü başlat
   });
-
   // Oyunu başlat
   bolumYukle(mevcutBolum);
   </script>
