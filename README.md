@@ -14,7 +14,7 @@ mrdolphin-gud.github.io/Kayip-Sinyal
 
 - 6 farklı bölüm
 - Farklı engel tipleri:
-  - Normal Engeller (Beyaz): Çarpıldığında bölümü yeniden başlatır
+  - Normal Engeller (Mor): Çarpıldığında bölümü yeniden başlatır
   - Hareket Sıfırlayan Engeller (Mavi): Bir kez kullanılabilir, hareketi sıfırlar
   - Yönlendiren Engeller (Turkuaz): Oyuncuyu belirli bir yöne hareket ettirir
 - Ses efektleri ve müzik
