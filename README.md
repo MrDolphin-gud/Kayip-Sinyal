@@ -4,7 +4,7 @@ Kayıp Sinyal, HTML5 Canvas kullanılarak geliştirilmiş bir bulmaca oyunudur. 
 
 # Oyun Adresi
 
-mrdolphin-gud.github.io
+mrdolphin-gud.github.io/Kayip-Sinyal
 
 ## Oyun Özellikleri
 
