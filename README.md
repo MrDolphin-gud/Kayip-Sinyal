@@ -25,6 +25,10 @@ mrdolphin-gud.github.io/Kayip-Sinyal
    - Mavi engelleri stratejik olarak kullanın
    - Turkuaz engeller sizi ok yönünde hareket ettirir
 
+# Nasıl Oynanır Videosu
+
+https://youtu.be/YswK94FdnIc
+
 ### Kontroller
 
 - ↑ - Yukarı hareket
@@ -47,8 +51,5 @@ Oyunu her bitirdiğinizde oynanış hızlanır
 
 ![image](https://github.com/user-attachments/assets/d9615829-a067-49fe-8e90-f59f1238b74c)
 ![image](https://github.com/user-attachments/assets/3593eda1-7fc0-44c9-87a6-ea0033304426)
-
-## Nasıl Oynanır
-https://youtu.be/YswK94FdnIc
 
 Oyunu oynadığınız için teşekkürler! İyi eğlenceler! 🎮✨ 
