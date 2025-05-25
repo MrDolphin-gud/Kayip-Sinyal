@@ -2,6 +2,10 @@
 
 Kayıp Sinyal, HTML5 Canvas kullanılarak geliştirilmiş bir bulmaca oyunudur. Oyuncu, yeşil kare karakterini kontrol ederek kırmızı hedefe ulaşmaya çalışır.
 
+# Oyun Adresi
+
+mrdolphin-gud.github.io
+
 ## Oyun Özellikleri
 
 - 6 farklı bölüm
