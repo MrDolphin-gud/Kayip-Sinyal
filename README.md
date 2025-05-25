@@ -45,6 +45,6 @@ Oyunu her bitirdiğinizde oynanış hızlanır
 ![image](https://github.com/user-attachments/assets/3593eda1-7fc0-44c9-87a6-ea0033304426)
 
 ## Nasıl Oynanır
-https://youtu.be/5a6vu4UIpJo
+https://youtu.be/YswK94FdnIc
 
 Oyunu oynadığınız için teşekkürler! İyi eğlenceler! 🎮✨ 
