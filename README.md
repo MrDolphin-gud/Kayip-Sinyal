@@ -47,6 +47,13 @@ Oyunu her bitirdiğinizde oynanış hızlanır
 - Saf JavaScript ile yazılmıştır
 - Web Audio API ile ses yönetimi sağlanmıştır
 
+### Kullanılan Sesler
+
+- Buton sesi: https://www.youtube.com/watch?v=KFNhJnp7eQ0
+- Bitirme sesi: https://www.youtube.com/watch?v=1ARb7r0yY9k
+- Yanma sesi: https://www.youtube.com/watch?v=FVJJKIJWKdc
+- Arka plan sesi: https://www.youtube.com/watch?v=-W921jTlBeI
+
 ## Ekran Görüntüleri
 
 ![image](https://github.com/user-attachments/assets/d9615829-a067-49fe-8e90-f59f1238b74c)
