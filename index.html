@@ -174,7 +174,7 @@
   const ENGEL_BOYUT = olcekHesapla(50);   // Beyaz engel kareleri boyutu
   // Engel tipleri
   const ENGEL_TIPLERI = {
-    NORMAL: 'normal',      // Normal engel (oyunu yeniden başlatır)
+    NORMAL: 'normal',      // Normal engel (bölümü yeniden başlatır)
     HAREKET_SIFIRLA: 'hareketSifirla',  // Hareketi sıfırlayan engel
     YONLENDIR: 'yonlendir'  // Yönlendiren engel
   };
@@ -188,7 +188,7 @@
   // Oyun bölümlerinin tanımları ve düzenleri
   const bolumler = [
     // Bölüm 1: Basit bir labirent düzeni
-    // Oyuncu sol alttan başlar, hedef sağ alttadır
+    // Oyuncu sol ortadan başlar, hedef sağ ortadadır
     // Engeller üst ve alt kısımda simetrik olarak yerleştirilmiştir
     {
       oda: { x: olcekHesapla(440), y: olcekHesapla(310), genislik: olcekHesapla(800), yukseklik: olcekHesapla(500), duvar: olcekHesapla(10) },
@@ -232,11 +232,11 @@
       oyuncu: { x: olcekHesapla(490), y: olcekHesapla(660) },  
       hedef: { x: olcekHesapla(1140), y: olcekHesapla(660) },  
       engeller: [
-        // Büyük normal engel (oyuncunun üstünde)
+        // Büyük normal engel 
         { x: olcekHesapla(490), y: olcekHesapla(410), boyut: olcekHesapla(200), tip: ENGEL_TIPLERI.NORMAL },
-        // Hareket sıfırlayan engel (sağ üst köşede)
+        // Hareket sıfırlayan engel 
         { x: olcekHesapla(770), y: olcekHesapla(360), boyut: olcekHesapla(60), tip: ENGEL_TIPLERI.HAREKET_SIFIRLA },
-        // Normal engel (oyuncu ve hedef arasında)
+        // Normal engel 
         { x: olcekHesapla(840), y: olcekHesapla(560), boyut: olcekHesapla(200), tip: ENGEL_TIPLERI.NORMAL }
       ]
     },
@@ -258,9 +258,9 @@
       oyuncu: { x: olcekHesapla(1140), y: olcekHesapla(960) },  
       hedef: { x: olcekHesapla(1140), y: olcekHesapla(360) },   
       engeller: [
-        // Büyük normal engel (oyuncu ve hedef arasında)
+        // Büyük normal engel
         { x: olcekHesapla(940), y: olcekHesapla(440), boyut: olcekHesapla(300), tip: ENGEL_TIPLERI.NORMAL },
-        // Yönlendiren engel (oyuncu ve normal engel arasında)
+        // Yönlendiren engel 
         { x: olcekHesapla(1140), y: olcekHesapla(760), boyut: olcekHesapla(60), tip: ENGEL_TIPLERI.YONLENDIR, yon: YONLER.SOL }
       ]
     }
@@ -294,7 +294,7 @@
   });
   // Ses çalma fonksiyonu
   // sesAdi: Çalınacak sesin adı
-  // zorla: Ses zaten çalıyorsa yeniden başlatılsın mı?
+  // zorla: Ses zaten çalıyorsa yeniden başlatılır
   function sesCal(sesAdi, zorla = false) {
     const ses = sesler[sesAdi];
     if (ses) {
@@ -610,7 +610,7 @@
       bolumYukle(mevcutBolum);
       return;
     }
-    // N tuşu: Sonraki bölüme geç (oyun bittiyse)
+    // N tuşu: Sonraki bölüme geç (bölüm ya da oyun bittiyse)
     if (e.code === 'KeyN' && oyunBitti) {
       sesCal('butonTik');
       if (mevcutBolum === bolumler.length - 1) {
