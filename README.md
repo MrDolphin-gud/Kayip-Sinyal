@@ -21,7 +21,7 @@ mrdolphin-gud.github.io/Kayip-Sinyal
 2. Yön tuşlarını kullanarak karakteri hareket ettirin
 3. Kırmızı hedefe ulaşmaya çalışın
 4. Engellere dikkat edin:
-   - Beyaz engellere çarpmamaya çalışın
+   - Mor engellere çarpmamaya çalışın
    - Mavi engelleri stratejik olarak kullanın
    - Turkuaz engeller sizi ok yönünde hareket ettirir
 
