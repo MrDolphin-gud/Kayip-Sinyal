@@ -25,7 +25,7 @@ mrdolphin-gud.github.io/Kayip-Sinyal
    - Mavi engelleri stratejik olarak kullanın
    - Turkuaz engeller sizi ok yönünde hareket ettirir
 
-# Nasıl Oynanır Videosu
+### Nasıl Oynanır Videosu
 
 https://youtu.be/YswK94FdnIc
 
