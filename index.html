@@ -2,8 +2,15 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
+  <!-- Oyun başlığı - tarayıcı sekmesinde görünecek -->
   <title>Kayıp Sinyal</title>
   <style>
+    /* 
+      - Kenar boşlukları sıfırlanır
+      - Tam ekran görünüm sağlanır
+      - Taşan içerik gizlenir
+      - Arka plan siyah yapılır
+    */
     html, body { 
       margin: 0;
       padding: 0;
@@ -14,112 +21,112 @@
     }
     body { 
       display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: monospace;
-      color: #fff;
+      justify-content: center;  /* Yatayda ortala */
+      align-items: center;      /* Dikeyde ortala */
+      font-family: monospace;   /* Eşit genişlikli yazı tipi */
+      color: #fff;             /* Beyaz metin */
     }
     #oyunKonteyner {
-      position: relative;
-      width: 1280px;
-      height: 720px;
-      margin: auto;
+      position: relative;      /* İçerik için referans */
+      width: 1280px;          /* Genişlik */
+      height: 720px;          /* Yükseklik */
+      margin: auto;           /* Otomatik kenar boşlukları */
     }
     canvas { 
-      position: absolute;
-      top: 0;
-      left: 0;
-      background: #111;
+      position: absolute;     /* Mutlak konumlandırma */
+      top: 0;                /* Üstten sıfır boşluk */
+      left: 0;               /* Soldan sıfır boşluk */
+      background: #111;      /* Koyu gri arka plan */
     }
     #menu {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      background: rgba(0, 0, 0, 0.8);
-      padding: 20px;
-      border-radius: 10px;
-      border: 2px solid #f0f;
-      z-index: 100;
-      width: 400px;
+      position: absolute;                    /* Mutlak konumlandırma */
+      top: 50%;                             /* Dikeyde ortala */
+      left: 50%;                            /* Yatayda ortala */
+      transform: translate(-50%, -50%);      /* Tam merkezleme */
+      text-align: center;                   /* Metin ortala */
+      background: rgba(0, 0, 0, 0.8);       /* Yarı saydam arka plan */
+      padding: 20px;                        /* İç boşluk */
+      border-radius: 10px;                  /* Yuvarlatılmış köşeler */
+      border: 2px solid #f0f;               /* Mor kenarlık */
+      z-index: 100;                         /* Katman sırası */
+      width: 400px;                         /* Sabit genişlik */
     }
     #menu h1 {
-      color: #f0f;
-      margin-bottom: 30px;
-      font-size: 24px;
+      color: #f0f;           /* Mor renk */
+      margin-bottom: 30px;   /* Alt boşluk */
+      font-size: 24px;       /* Başlık boyutu */
     }
     .menu-buton {
-      background: #111;
-      color: #fff;
-      border: 2px solid #f0f;
-      padding: 10px 20px;
-      margin: 10px;
-      cursor: pointer;
-      font-family: monospace;
-      font-size: 16px;
-      transition: all 0.3s;
-      width: 200px;
+      background: #111;              /* Koyu arka plan */
+      color: #fff;                  /* Beyaz metin */
+      border: 2px solid #f0f;       /* Mor kenarlık */
+      padding: 10px 20px;           /* İç boşluk */
+      margin: 10px;                 /* Dış boşluk */
+      cursor: pointer;              /* El işareti */
+      font-family: monospace;       /* Yazı tipi */
+      font-size: 16px;              /* Metin boyutu */
+      transition: all 0.3s;         /* Geçiş efekti */
+      width: 200px;                 /* Sabit genişlik */
     }
     .menu-buton:hover {
-      background: #f0f;
-      color: #000;
+      background: #f0f;    /* Mor arka plan */
+      color: #000;         /* Siyah metin */
     }
     #oyunKanvas {
-      display: none;
+      display: none;       /* Başlangıçta gizli */
     }
     #sesKontrol {
-      margin-top: 20px;
-      color: #fff;
-      padding: 0 20px;
+      margin-top: 20px;            /* Üst boşluk */
+      color: #fff;                 /* Beyaz metin */
+      padding: 0 20px;             /* Yatay iç boşluk */
     }
     #sesKontrol label {
-      display: block;
-      margin-bottom: 10px;
-      font-size: 14px;
+      display: block;              /* Blok element */
+      margin-bottom: 10px;         /* Alt boşluk */
+      font-size: 14px;             /* Etiket boyutu */
     }
     #sesKontrol input[type="range"] {
-      width: 100%;
-      margin-bottom: 15px;
+      width: 100%;                 /* Tam genişlik */
+      margin-bottom: 15px;         /* Alt boşluk */
     }
     #nasilOynanir {
-      display: none;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(0, 0, 0, 0.9);
-      padding: 20px;
-      border-radius: 10px;
-      border: 2px solid #f0f;
-      z-index: 101;
-      width: 400px;
-      text-align: left;
+      display: none;               /* Başlangıçta gizli */
+      position: absolute;          /* Mutlak konumlandırma */
+      top: 50%;                    /* Dikeyde ortala */
+      left: 50%;                   /* Yatayda ortala */
+      transform: translate(-50%, -50%); /* Tam merkezleme */
+      background: rgba(0, 0, 0, 0.9);  /* Yarı saydam arka plan */
+      padding: 20px;               /* İç boşluk */
+      border-radius: 10px;         /* Yuvarlatılmış köşeler */
+      border: 2px solid #f0f;      /* Mor kenarlık */
+      z-index: 101;                /* Katman sırası */
+      width: 400px;                /* Sabit genişlik */
+      text-align: left;            /* Sola hizalı metin */
     }
     #nasilOynanir h2 {
-      color: #f0f;
-      text-align: center;
-      margin-bottom: 20px;
+      color: #f0f;                 /* Mor renk */
+      text-align: center;          /* Ortalanmış metin */
+      margin-bottom: 20px;         /* Alt boşluk */
     }
     #nasilOynanir p {
-      margin: 10px 0;
-      line-height: 1.5;
+      margin: 10px 0;              /* Üst ve alt boşluk */
+      line-height: 1.5;            /* Satır aralığı */
     }
     #nasilOynanir .kontroller {
-      margin-top: 20px;
-      padding: 10px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 5px;
+      margin-top: 20px;            /* Üst boşluk */
+      padding: 10px;               /* İç boşluk */
+      background: rgba(255, 255, 255, 0.1); /* Yarı saydam arka plan */
+      border-radius: 5px;          /* Yuvarlatılmış köşeler */
     }
     #nasilOynanir .kapatButon {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: none;
-      border: none;
-      color: #f0f;
-      font-size: 20px;
-      cursor: pointer;
+      position: absolute;          /* Mutlak konumlandırma */
+      top: 10px;                  /* Üstten boşluk */
+      right: 10px;                /* Sağdan boşluk */
+      background: none;           /* Şeffaf arka plan */
+      border: none;               /* Kenarlık yok */
+      color: #f0f;                /* Mor renk */
+      font-size: 20px;            /* Büyük punto */
+      cursor: pointer;            /* El işareti */
     }
   </style>
 </head>
